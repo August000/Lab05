@@ -34,8 +34,19 @@ public class Calculator
      */
     protected static int calculateTwoTokens(String[] tokens) throws NumberFormatException, CalculatorException
     {
-        int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
-        // TODO: complete this...
+    	int a = Integer.parseInt(tokens[1]); // Throws NumberFormatException if the second token is not an int value.
+        
+    	switch(tokens[0]){
+    	case "negate": a *= -1;
+    		break;
+    	case "halve": a /= 2;
+    		break;
+    	default: new CalculatorException("Illegal Command");
+    		break;		
+    	}
+    	
+    	return a;
+    	// DONE: complete this...
     }
 
     /**
@@ -66,10 +77,29 @@ public class Calculator
      * @throws NumberFormatException Thrown if the first or third token is not convertible from String to int.
      * @throws CalculatorException Thrown if the second token is not a valid command ("+", "-", or "/")
      */
-    protected static int calculateThreeTokens(String[] tokens)
-            throws ArithmeticException, NumberFormatException, CalculatorException
+    protected static int calculateThreeTokens(String[] tokens) throws ArithmeticException, NumberFormatException, CalculatorException
     {
-        // TODO: complete this...
+        
+    	int num1 = Integer.parseInt(tokens[0]);
+    	int num2 = Integer.parseInt(tokens[2]);
+    	int result = 0;
+    	
+        switch(tokens[1]) {
+        	
+        	case "+": result = num1 + num2;
+        		break;
+        	case "-": result = num1 - num2;
+        		break;
+        	case "*": result = num1 * num2;
+        		break;
+        	case "/": result = num1 / num2;
+        		break;
+        	default: new CalculatorException("Illegal Command");
+        		break;
+        }
+		
+        return result;
+    
     }
 
     /**
@@ -115,10 +145,10 @@ public class Calculator
         	}
         	
         	break;
-        case 2:  calculateTwoTokens(tokens);
-        	break;
-        case 3: calculateThreeTokens(tokens);
-        	break;
+        
+        case 2: return calculateTwoTokens(tokens);
+        case 3: return calculateThreeTokens(tokens);
+
         default: new CalculatorException("Illegal Token Length");
         	break;
         }
