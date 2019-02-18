@@ -105,7 +105,22 @@ public class Calculator
         // Condition on the number of tokens (number of strings in user input separated by spaces)
         switch(tokens.length)
         {
-            // TODO: complete this...
+        case 1: 
+        
+        	if(tokens[0].equals("quit")) {
+        		return Integer.MIN_VALUE;
+        	}
+        	else {
+        		new CalculatorException("Illegal Token Length");
+        	}
+        	
+        	break;
+        case 2:  calculateTwoTokens(tokens);
+        	break;
+        case 3: calculateThreeTokens(tokens);
+        	break;
+        default: new CalculatorException("Illegal Token Length");
+        	break;
         }
 
     }
@@ -141,7 +156,14 @@ public class Calculator
      */
     public static String parseAndExecute(String input)
     {
-        // TODO: complete this...
+    	String[] tokens = input.split(" ");
+    	
+    	try {
+    		execute(tokens);
+    	}
+    	catch(CalculatorException ce){}
+    	
+    	// TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
     }
