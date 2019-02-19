@@ -187,14 +187,27 @@ public class Calculator
     {
     	String[] tokens = input.split(" ");
     	
+    	String output = "";
+    	
     	try {
-    		int result = execute(tokens);
-    	}
-    	catch(CalculatorException ce){
-    		
+    		if(execute(tokens) == Integer.MIN_VALUE) {
+    			output = "quit";
+    		}
+    		else {
+    			output = String.format("The result is: %d", execute(tokens));
+    		}
     	}
     	
-    	return String.format("The result is: %d", args);
+    	catch(ArithmeticException e){
+    		output = "Attempted to divide by 0. Please try again.";
+    	}
+    	catch(NumberFormatException e){
+    		output = "Input number cannot be parsed to an int. Please try again.";
+    	}
+    	catch(CalculatorException e){
+    		output = String.format("Calculator Exception, message is: %s", e.getMessage());
+    	}
+    	return output;
     	// TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
