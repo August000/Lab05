@@ -90,8 +90,6 @@ public class Calculator
         		break;
         	case "-": result = num1 - num2;
         		break;
-        	case "*": result = num1 * num2;
-        		break;
         	case "/": result = num1 / num2;
         		break;
         	default: new CalculatorException("Illegal Command");
@@ -132,27 +130,28 @@ public class Calculator
      */
     protected static int execute(String[] tokens) throws NumberFormatException, CalculatorException
     {
-        // Condition on the number of tokens (number of strings in user input separated by spaces)
+    	int result = 0; 
+    	
         switch(tokens.length)
         {
         case 1: 
-        
         	if(tokens[0].equals("quit")) {
-        		return Integer.MIN_VALUE;
+        		result = Integer.MIN_VALUE;
         	}
         	else {
-        		new CalculatorException("Illegal Token Length");
+        		throw new CalculatorException("Illegal Command");
         	}
         	
         	break;
-        
-        case 2: return calculateTwoTokens(tokens);
-        case 3: return calculateThreeTokens(tokens);
-
-        default: new CalculatorException("Illegal Token Length");
+        case 2: result = calculateTwoTokens(tokens);
+        	break;
+        case 3: result = calculateThreeTokens(tokens);
+        	break;
+        default:  new CalculatorException("Illegal Token Length");
         	break;
         }
-
+        
+        return result;
     }
 
     /**
@@ -189,10 +188,13 @@ public class Calculator
     	String[] tokens = input.split(" ");
     	
     	try {
-    		execute(tokens);
+    		int result = execute(tokens);
     	}
-    	catch(CalculatorException ce){}
+    	catch(CalculatorException ce){
+    		
+    	}
     	
+    	return String.format("The result is: %d", args);
     	// TODO: complete this...
         // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
         // method will catch those exceptions and respond accordingly.
