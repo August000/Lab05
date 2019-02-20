@@ -41,8 +41,7 @@ public class Calculator
     		break;
     	case "halve": a /= 2;
     		break;
-    	default: new CalculatorException("Illegal Command");
-    		break;		
+    	default: throw new CalculatorException("Illegal Command");		
     	}
     	
     	return a;
@@ -92,8 +91,7 @@ public class Calculator
         		break;
         	case "/": result = num1 / num2;
         		break;
-        	default: new CalculatorException("Illegal Command");
-        		break;
+        	default: throw new CalculatorException("Illegal Command");
         }
 		
         return result;
@@ -138,6 +136,9 @@ public class Calculator
         	if(tokens[0].equals("quit")) {
         		result = Integer.MIN_VALUE;
         	}
+        	else if(tokens[0] == "") {
+        		throw new CalculatorException("Illegal Token Length");
+        	}
         	else {
         		throw new CalculatorException("Illegal Command");
         	}
@@ -147,8 +148,7 @@ public class Calculator
         	break;
         case 3: result = calculateThreeTokens(tokens);
         	break;
-        default:  new CalculatorException("Illegal Token Length");
-        	break;
+        default: throw new CalculatorException("Illegal Token Length");
         }
         
         return result;
@@ -192,8 +192,8 @@ public class Calculator
     	try {
     		if(execute(tokens) == Integer.MIN_VALUE) {
     			output = "quit";
-    		}
-    		else {
+    		}	
+    		else{
     			output = String.format("The result is: %d", execute(tokens));
     		}
     	}
@@ -208,8 +208,5 @@ public class Calculator
     		output = String.format("Calculator Exception, message is: %s", e.getMessage());
     	}
     	return output;
-    	// TODO: complete this...
-        // Hint: you should try and call execute(). If execute encounters an error, it will throw an exception. This
-        // method will catch those exceptions and respond accordingly.
     }
 }
